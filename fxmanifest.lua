@@ -23,6 +23,7 @@ client_scripts {
     'client/modules/utils.lua',
     'client/hunting.lua',
     'client/campfire.lua',
+    'client/tent.lua',
     'client/shops.lua',
     'client/missions.lua',
     'client/aimblock.lua',
