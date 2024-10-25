@@ -114,4 +114,39 @@ lib.callback.register('ars_hunting:hasItems', function(source, items)
     return framework.hasItems({ target = source, items = items })
 end)
 
+local registeredStashes = {}
+local ox_inventory = exports.ox_inventory
+
+
+RegisterNetEvent("ars_hunting:takeTent", function(data)
+    local sourcePed = GetPlayerPed(source)
+
+    if #(GetEntityCoords(sourcePed) - data.coords) > 4.0 then
+        print("ARS HUNTING >> PLAYER MIGHT BE CHEATING ID: " .. source)
+        return
+    end
+
+    framework.addItems({ target = source, items = Config.Tent.tentItem })
+end)
+
+
+RegisterServerEvent('ars_hunting:registerTentStash')
+AddEventHandler('ars_hunting:registerTentStash', function(stashId)
+    if not registeredStashes[stashId] then
+
+        local stashLabel = 'Stash (' .. stashId .. ')'
+
+        ox_inventory:RegisterStash(stashId, stashLabel, 50, 100000, true)
+        registeredStashes[stashId] = true
+        --print("Tent Stash registered: " .. stashId)  -- Debug-Ausgabe
+    end
+end)
+
+
+RegisterNetEvent('inventory:openStash', function(stashId)
+    local source = source
+    --print("Stash Event Received on Server, Stash ID: " .. stashId)  -- Debug
+    TriggerClientEvent('ox_inventory:client:OpenStash', source, stashId)
+end)
+
 lib.versionCheck('Arius-Development/ars_hunting')
