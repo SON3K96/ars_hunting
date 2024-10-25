@@ -36,6 +36,12 @@ Config.ImagesPath = "nui://ars_hunting/_icons/"
 --                         | |
 --                         |_|
 
+
+Config.Tent = {
+    enable = true,
+    tentItem = "tent"
+}
+
 Config.Campfire = {
     enable = true,
     campfireItem = "campfire",
